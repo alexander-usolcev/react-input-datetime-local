@@ -9,92 +9,99 @@ npm install react-input-datetime-local --save-dev
 ```
 
 ## Usage
-Create your es6 file:
+Create your style file:
+``` css
+.my-class input {
+    position: absolute;
+    left: -10000px;
+    top: -10000px;
+}
+```
+
+and then create .js file:
 ``` js
+import React, {PureComponent} from 'react';
+import ReactDOM from 'react-dom';
 import InputDatetimeLocal from 'react-input-datetime-local';
 
 
-function test() {
-    let eventEmitter = new EventEmitter();
-
-    eventEmitter.on('test', (data) => {
-        console.log('test 1. Data is ' + data);
-    });
-
-    function cb() {
-        console.log('test 2');
+function pad(number) {
+    if (number < 10) {
+        return '0' + number;
     }
-    eventEmitter.on('test', cb);
-
-    console.log(eventEmitter.eventNames()); // ['test']
-
-    eventEmitter.emit('test', 'test data');
-
-
-    console.log('remove one listener');
-    eventEmitter.removeListener('test', cb);
-
-    eventEmitter.emit('test', 'new test data');
+    return number;
 }
 
-export default test();
+function myFormat(date) {
+    return 'myFormat is: ' + date.getFullYear() +
+        '-' + pad(date.getMonth() + 1) +
+        '-' + pad(date.getDate()) +
+        'T' + pad(date.getHours()) +
+        ':' + pad(date.getMinutes()) +
+        ':' + pad(date.getSeconds());
+}
+
+class App extends PureComponent {
+    constructor() {
+        super();
+
+        this.state = {
+            date: Date.now()
+        };
+
+        this.updateState = this.updateState.bind(this);
+    }
+
+    updateState(date) {
+        this.setState({ date });
+    }
+
+    render() {
+        return (
+            <div>
+                Click the date below in phone (android or ios): <br/>
+                <InputDatetimeLocal
+                    className="my-class"
+                    text={myFormat(new Date(this.state.date))}
+                    parent={this}
+                    value={this.state.date}
+                    min={this.state.date - 2592000000 * 10} // 300 days.
+                    max={Date.now()}
+                    onChange={this.updateState}
+                />
+
+                <br/>
+
+                min: Date.now() - 300 days <br />
+                max: Date.now() <br />
+
+            </div>
+        )
+    }
+}
 
 ```
 
-and then build it with webpack.
-
-Add to html page you generated script and open console tab in devtools:
+Add to html page you generated script and open page:
 ```
 <script src='my-bundle.js'></script>
 ```
-you will see:
-``` js
-['test']
-test 1. Data is test data
-test 2
-remove one listener
-test 1. Data is new test data
-```
 
 ## API
-### eventEmitter.addListener(eventName, listener)
-Alias for eventEmitter.on(eventName, listener).
+### className
+Add css class to generated html.
 
-### eventEmitter.on(eventName, listener)
-Adds the listener function to the end of the listeners array for the event named eventName.
-``` js
-let eventEmitter = new EventEmitter();
+### text
+Add output value with specific format.
 
-eventEmitter.on('test', (data) => {
-    console.log('test 1. Data is ' + data);
-});
-```
+### onChange
+Adds the listener function. Triggered when value is change.
 
-### eventEmitter.removeListener(eventName, listener)
-Removes the specified listener from the listener array for the event named eventName.
-``` js
-eventEmitter.removeListener('test', callback);
-```
+### parent
+Parent of component (needs to call onChange event with parent context).
 
-### eventEmitter.removeAllListeners(eventName)
-Removes all listeners, or those of the specified eventName.
-``` js
-eventEmitter.removeAllListeners('test');
-```
+### value
+Value of input.
 
-### eventEmitter.emit(eventName[, arg1][, arg2][, ...])
-Synchronously calls each of the listeners registered for the event named eventName, in the order they were registered, passing the supplied arguments to each.
-``` js
-eventEmitter.emit('test', 'data', 'another data');
-```
-
-### eventEmitter.eventNames()
-Returns an array listing the events for which the emitter has registered listeners.
-``` js
-let eventEmitter = new EventEmitter();
-
-eventEmitter.on('bar', () => { });
-eventEmitter.on('foo', () => { });
-
-console.log(eventEmitter.eventNames()); // ['bar', 'foo']
-```
+### min and max
+Min and max value which user can set in input.

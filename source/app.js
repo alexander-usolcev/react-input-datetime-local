@@ -4,14 +4,14 @@ import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import InputDatetimeLocal from './input-datetime-local';
 
-function myFormat(date) {
-    function pad(number) {
-        if (number < 10) {
-            return '0' + number;
-        }
-        return number;
+function pad(number) {
+    if (number < 10) {
+        return '0' + number;
     }
+    return number;
+}
 
+function myFormat(date) {
     return 'myFormat is: ' + date.getFullYear() +
         '-' + pad(date.getMonth() + 1) +
         '-' + pad(date.getDate()) +
@@ -41,7 +41,7 @@ class App extends PureComponent {
                 Click the date below in phone (android or ios): <br/>
                 <InputDatetimeLocal
                     className="my-class"
-                    text={myFormat(new Date(this.state.date))}
+                    output={myFormat(new Date(this.state.date))}
                     parent={this}
                     value={this.state.date}
                     min={this.state.date - 2592000000 * 10} // 300 days.

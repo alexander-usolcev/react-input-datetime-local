@@ -2,14 +2,15 @@
 
 import React, {PureComponent} from 'react';
 
-function toISOString(date = new Date()) {
-    function pad(number) {
-        if (number < 10) {
-            return '0' + number;
-        }
-        return number;
-    }
 
+function pad(number) {
+    if (number < 10) {
+        return '0' + number;
+    }
+    return number;
+}
+
+function toISOString(date = new Date()) {
     return date.getFullYear() +
         '-' + pad(date.getMonth() + 1) +
         '-' + pad(date.getDate()) +
@@ -63,7 +64,7 @@ export default class InputDatetimeLocal extends PureComponent {
     render() {
         return (
             <div className={this.props.className} onClick={this.onClick}>
-                {this.props.text || toISOString(new Date(this.props.value))}
+                {this.props.output || toISOString(new Date(this.props.value))}
                 <input className="hidden" type="datetime-local" ref="input" value={toISOString(new Date(this.props.value))}
                        onChange={this.onChange} /*min={toISOString(this.props.min)} max={toISOString(this.props.max, true)}*/ />
             </div>
