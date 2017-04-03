@@ -62,7 +62,7 @@ class App extends PureComponent {
                 Click the date below in phone (android or ios): <br/>
                 <InputDatetimeLocal
                     className="my-class"
-                    text={myFormat(new Date(this.state.date))}
+                    output={myFormat(new Date(this.state.date))}
                     parent={this}
                     value={this.state.date}
                     min={this.state.date - 2592000000 * 10} // 300 days.
@@ -91,7 +91,7 @@ Add to html page you generated script and open page:
 ### className
 Add css class to generated html.
 
-### text
+### output
 Add output value with specific format.
 
 ### onChange
