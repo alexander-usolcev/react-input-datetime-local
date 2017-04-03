@@ -1,0 +1,36 @@
+{
+  "name": "react-input-datetime-local",
+  "version": "1.0.0",
+  "author": "Alexander Usolcev <alexander.usolcev@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexander-usolcev/react-input-datetime-local.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-2": "^6.13.0",
+    "cross-env": "^4.0.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "smart-banner-webpack-plugin": "^3.0.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  },
+  "description": "React component for native call <input type='datetime-local'>",
+  "main": "app/input-datetime-local.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --open --history-api-fallback --host 0.0.0.0",
+    "prod": "cross-env NODE_ENV=production webpack --profile --display-modules --display-reasons"
+  },
+  "homepage": "https://github.com/alexander-usolcev/react-input-datetime-local#readme"
+}
