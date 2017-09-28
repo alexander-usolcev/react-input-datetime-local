@@ -66,6 +66,7 @@ export default class InputDatetimeLocal extends PureComponent {
             <div className={this.props.className} onClick={this.onClick}>
                 {this.props.output || toISOString(new Date(this.props.value))}
                 <input className="hidden" type="datetime-local" ref="input" value={toISOString(new Date(this.props.value))}
+                       name={this.props.name || ''}
                        onChange={this.onChange} /*min={toISOString(this.props.min)} max={toISOString(this.props.max, true)}*/ />
             </div>
         )
