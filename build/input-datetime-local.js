@@ -23,6 +23,12 @@ function toISOString() {
     return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) + 'T' + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds());
 }
 
+function toDateString() {
+    var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Date();
+
+    return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+}
+
 var InputDatetimeLocal = function (_PureComponent) {
     _inherits(InputDatetimeLocal, _PureComponent);
 
@@ -79,9 +85,15 @@ var InputDatetimeLocal = function (_PureComponent) {
                 'div',
                 { className: this.props.className, onClick: this.onClick },
                 this.props.output || toISOString(new Date(this.props.value)),
-                React.createElement('input', { className: 'hidden', type: this.props.type || "datetime-local", ref: 'input', value: toISOString(new Date(this.props.value)),
+                React.createElement('input', {
+                    className: 'hidden',
+                    type: this.props.type || "datetime-local",
+                    ref: 'input',
+                    value: this.props.type ? toDateString(new Date(this.props.value)) : toISOString(new Date(this.props.value)),
                     name: this.props.name || '',
-                    onChange: this.onChange /*min={toISOString(this.props.min)} max={toISOString(this.props.max, true)}*/ })
+                    onChange: this.onChange
+                    /*min={toISOString(this.props.min)} max={toISOString(this.props.max, true)}*/
+                })
             );
         }
     }]);
